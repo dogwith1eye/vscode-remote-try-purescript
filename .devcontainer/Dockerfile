@@ -19,7 +19,7 @@ RUN apt-get update \
     && npm install -g purescript --unsafe-perm=true \
     #
     # Install spago
-    && npm install -g spago \
+    && npm install -g spago --unsafe-perm=true \
     #
     # Clean up
     && apt-get autoremove -y \
