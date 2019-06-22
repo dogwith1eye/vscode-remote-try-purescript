@@ -1,0 +1,11 @@
+{
+    "name": "Purescript Sample",
+    "dockerFile": "Dockerfile",
+    "appPort": 3000,
+    "extensions": [
+        "nwolverson.language-purescript"
+    ],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    }
+}
