@@ -15,11 +15,21 @@ RUN apt-get update \
     # Verify git and needed tools are installed
     && apt-get install -y git procps \
     #
-    # Install purescript
-    && npm install -g purescript --unsafe-perm=true \
+    # Remove outdated yarn from /opt and install via package 
+    # so it can be easily updated via apt-get upgrade yarn
+    && rm -rf /opt/yarn-* \
+    && rm -f /usr/local/bin/yarn \
+    && rm -f /usr/local/bin/yarnpkg \
+    && apt-get install -y curl apt-transport-https lsb-release \
+    && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
+    && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update \
+    && apt-get -y install --no-install-recommends yarn \
     #
-    # Install spago
-    && npm install -g spago --unsafe-perm=true \
+    # Install dhall language server
+    && curl -O -J -L https://github.com/dhall-lang/dhall-haskell/releases/download/1.24.0/dhall-lsp-server-0.1.0.1-x86_64-linux.tar.bz2 \
+    && tar xvjf dhall-lsp-server-0.1.0.1-x86_64-linux.tar.bz2 \
+    && mv /bin/dhall-lsp-server /usr/bin \
     #
     # Clean up
     && apt-get autoremove -y \

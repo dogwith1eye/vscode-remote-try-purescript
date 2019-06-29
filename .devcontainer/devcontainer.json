@@ -1,11 +1,17 @@
 {
-    "name": "Purescript Sample",
-    "dockerFile": "Dockerfile",
-    "appPort": 3000,
-    "extensions": [
-        "nwolverson.language-purescript"
-    ],
-    "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-    }
+	"name": "Purescript Sample",
+	"dockerFile": "Dockerfile",
+	"appPort": 9000,
+	"extensions": [
+		"nwolverson.ide-purescript",
+		"panaeon.vscode-dhall-lsp-server",
+		"panaeon.dhall-lang"
+	],
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"purescript.addSpagoSources": true,
+		"purescript.addNpmPath": true,
+		"purescript.buildCommand": "spago build -- --json-errors",
+		"vscode-dhall-lsp-server.trace.server": "verbose"
+	}
 }
